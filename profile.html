@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>User Profile</title>
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+	<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.bundle.min.js" integrity="sha384-zDnhMsjVZfS3hiP7oCBRmfjkQC4fzxVxFhBx8Hkz2aZX8gEvA/jsP3eXRCvzTofP" crossorigin="anonymous"></script>
+</head>
+<body>
+	<h3>User Profile</h3>
+	<div id="response"></div>
+	<form action="profile.php" method="post">
+		<table>
+			<tr><td>Email</td><td><label id="email"></label></td></tr>
+			<tr><td>Name</td><td><input type="text" id="uname" placeholder="Please enter your Name"></td></tr>
+			<tr><td>Father Name</td><td><input type="text" id="fname" placeholder="Please enter your Father name"></td></tr>
+			<tr><td>Address</td><td><input type="textarea" id="address" placeholder="Please enter your address"></td></tr>
+ 	 		<tr><td>Dob</td><td><input type="text" id="dob" placeholder="Please enter your DOB"></td></tr>
+	 		<tr><td>Qualification</td><td><input type="text" id="qualify" placeholder ="Please enter your qualification"></td></tr>
+	 		<tr><td>Position</td><td><input type="text" id="position" placeholder="Please enter your position"></td></tr>
+	 		<tr><td>Company Name</td><td><input type="text" id="company" placeholder="Please enter your company name"></td></tr>
+	 		
+	 		
+	 		<tr> <td><input type="button" id="profile_save" value="Save" ></td></tr>
+
+	 	</table>
+	</form>
+	 <script type="text/javascript">
+ 
+ 		$(document).ready(function() {
+       		var login_mail = localStorage['login_mail'];
+	 		$('#email').text(login_mail);	
+	 	
+        });
+	 	$(document).ready(function() {
+	 		
+	 		$('#profile_save').click(function() {
+	 			var email = localStorage['login_mail'];
+	 			$('#response').html("<b>Loading response...</b>");
+	 			var uname = $("#uname").val();
+	 			var fname = $("#uname").val();	
+	 			var address = $("#address").val();
+	 			var dob = $("#dob").val();
+	 			var qualify = $("#qualify").val();
+	 			var position = $("#position").val();
+	 			var company = $("#company").val();
+	 			$.ajax({
+	 				type: 'POST',
+	 				url: 'profile.php',
+	 				data: {name: uname, father_name: fname, position:position, address:address, dob:dob, qualification:qualify, company_name:company, email: email }
+	 			})
+	 			.done(function (data){
+	 				$('#response').html(data);
+	 			})
+
+	 		});
+	 	});
+
+	 </script>
+</body>
+</html>

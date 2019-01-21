@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>User Register</title>
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+	<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.bundle.min.js" integrity="sha384-zDnhMsjVZfS3hiP7oCBRmfjkQC4fzxVxFhBx8Hkz2aZX8gEvA/jsP3eXRCvzTofP" crossorigin="anonymous"></script>
+</head>
+<body>
+	<h3>Login</h3>
+	<div id="response">test</div>
+	<form action="login.php" method="post">
+		<table>
+	 		<tr><td>Email</td><td><input type="text" id="email" placeholder ="Please enter your email"></td></tr>
+	 		<tr><td>Password</td><td><input type="text" id="pwd" placeholder="Please enter your password"></td></tr>
+	 		<tr> <td><input type="button" id="login" value="Login" ></td></tr>
+
+	 	</table>
+	</form>
+	 <script type="text/javascript">
+	 	$(document).ready(function() {
+	 		$('#login').click(function() {
+	 			$('#response').html("<b>Loading response...</b>");
+ 	 			var email = $('#email').val();
+	 			var pwd = $('#pwd').val();
+
+	 			$('#response').html("<b>Loading response...</b>");
+  	 			$.ajax({
+	 				type: 'POST',
+	 				url: 'login.php',
+	 				data: {email: email, pwd: pwd }
+	 			})
+	 			.done(function (data){
+	 				if(data['status']==200)
+	 				{
+	 					$('#response').html("Successfully logged in!");
+	 					localStorage['login_mail'] = email;
+ 	 					setTimeout(function(){
+	 						window.location.href = "profile.html"
+	 					}, 5000);
+	 				}
+	 				else
+	 				{
+	 					$('#response').html(data['message']);
+	 				}
+	 			})
+
+	 		});
+	 	});
+
+	 </script>
+</body>
+</html>
